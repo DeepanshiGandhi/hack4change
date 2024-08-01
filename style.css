@@ -1,123 +1,31 @@
-*{
-	padding: 0;
-	margin: 0;
+#chat-container {
+    width: 50%;
+    margin: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
 }
 
-#course .course-box
-{
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-	grid-gap: 1rem;
-	margin-top: 50px;
-}
-section{
-	padding: 20px;
-  }
-header{
-	display: flex;
-	background-color: #000000;
-  }
-  .dash img{
-	border: 4px solid indianred;
-	border-radius: 50%;
-	height: 98px;
-	width: 98px;
-  }
-  .dash img:hover{
-	opacity: 2;
-  }
-  nav{
-	background-color: rgb(13, 14, 13);
-	width: 100%;
-	height: 100hv;
-	color: rgb(226, 231, 231);
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-  }
-  .logo{
-	display: flex;
-	margin-left: -105px;
-  }
-  .logo p{
-	font-size: 2rem;
-	letter-spacing: 2px;
-	color: white;
-	padding-top: 14%;
-	padding-left: 9%;
-	font-family: 'Times New Roman', Times, serif;
-  }
-  .logo img{
-	width: 140px;
-	height: 140px;
-  }
-  .menu a{
-	text-decoration: none;
-	color: white;
-	padding: 10px 20px;
-	font-size: 28px;
-	position: relative;
-  }
-  .menu a:before{
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 0%;
-	height: 100%;
-	border-bottom: 2px solid indianred;
-	transition: 0.4s linear;
-  }
-  
-  .menu a:hover::before{
-	width:90%;
-  }
-  .menu a:hover{
-	color: rgb(186, 199, 75);
-  }
-#course .courses
-{
-	text-align: start;
-	background: #edf1f2;
-	height: 100%;
-	position: relative;
+#chat-box {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
 }
 
-#course .courses img
-{
-	width: 100%;
-	height: 60%;
-	background-size: cover;
-	background-position: center;
-}
-.details a{
-	text-decoration: none;
-	color: #000000;
-}
-.details a:hover{
-	color: grey;
-}
-#course .courses .details
-{
-	padding: 15px 15px 0 15px;
+.user-message, .ai-message {
+    padding: 5px;
+    margin-bottom: 10px;
 }
 
-#course .courses .details i
-{
-	color: #fdc93b;
-	font-size: .9rem;
+.user-message {
+    text-align: right;
+    color: blue;
 }
 
-#course .courses .cost
-{
-	background-color: rgb(74, 74, 136);
-	color: #fff;
-	line-height: 70px;
-	width: 70px;
-	height: 70px;
-	text-align: center;
-	border-radius: 50%;
-	position: absolute;
-	right: 15px;
-	bottom: 100px;
+.ai-message {
+    text-align: left;
+    color: green;
 }
