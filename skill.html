@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('bg12.jpg');
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .question {
+            margin-bottom: 15px;
+        }
+
+        .question label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .question input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .question input[type="radio"] {
+            width: auto;
+        }
+
+        .question input[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .question input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .result {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .result p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Skill Test</h1>
+        <form id="skill-test-form">
+            <div class="question">
+                <label>1. What is the capital of France?</label>
+                <input type="text" id="question1" required>
+            </div>
+            <div class="question">
+                <label>2. What is 5 + 7?</label>
+                <input type="number" id="question2" required>
+            </div>
+            <div class="question">
+                <label>3. Select the correct color for the sky:</label>
+                <label><input type="radio" name="color" value="blue" required> Blue</label>
+                <label><input type="radio" name="color" value="green"> Green</label>
+                <label><input type="radio" name="color" value="red"> Red</label>
+            </div>
+            <div class="question">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+        <div class="result" id="result">
+            <p id="result-text"></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('skill-test-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get form values
+            const question1 = document.getElementById('question1').value.trim().toLowerCase();
+            const question2 = parseInt(document.getElementById('question2').value.trim(), 10);
+            const color = document.querySelector('input[name="color"]:checked');
+
+            let score = 0;
+
+            // Check answers
+            if (question1 === 'paris') score++;
+            if (question2 === 12) score++;
+            if (color && color.value === 'blue') score++;
+
+            // Display result
+            const resultText = document.getElementById('result-text');
+            if (score === 3) {
+                resultText.textContent = 'Congratulations! You got all the answers right!';
+                window.location.href = 'roadmap.html'; // Redirect to roadmap.html
+            } else {
+                resultText.textContent = `You got ${score} out of 3 questions right.`;
+                document.getElementById('result').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

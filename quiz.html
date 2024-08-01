@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz with Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStKsweF2eYvE8KNI_DEwxssHSkT0bcpxDPHw&s');
+        }
+
+        header{
+            display: flex;
+            background-color: #000000;
+          }
+          
+          nav{
+            background-color: rgb(13, 14, 13);
+            width: 100%;
+            height: 100hv;
+            color: rgb(226, 231, 231);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+          }
+          .logo{
+            display: flex;
+            margin-left: -105px;
+          }
+          .logo p{
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: white;
+            padding-top: 14%;
+            padding-left: 9%;
+            font-family: 'Times New Roman', Times, serif;
+          }
+          .logo img{
+            width: 140px;
+            height: 140px;
+          }
+          .menu a{
+            text-decoration: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 28px;
+            position: relative;
+          }
+          .menu a:before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            border-bottom: 2px solid indianred;
+            transition: 0.4s linear;
+          }
+          
+          .menu a:hover::before{
+            width:90%;
+          }
+          .menu a:hover{
+            color: rgb(186, 199, 75);
+          }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .timer {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #e7e7e7;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            background-color: #d5d5d5;
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            display: none;
+            text-align: center;
+        }
+
+        .result p {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Time!</h1>
+        <div class="timer" id="timer">Time Left: 00:00</div>
+        <div id="quiz">
+            <!-- Questions and Options will be dynamically inserted here -->
+        </div>
+        <button class="button" id="nextBtn" onclick="nextQuestion()">Next</button>
+        <div class="result" id="result">
+            <p id="resultText"></p>
+            <button class="button" onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        // Quiz questions and answers
+        const questions = [
+            { question: "What is 2 + 2?", options: ["3", "4", "5", "6"], answer: "4" },
+            { question: "What is the capital of France?", options: ["Berlin", "Madrid", "Paris", "Rome"], answer: "Paris" },
+            { question: "What is the largest planet in our solar system?", options: ["Earth", "Jupiter", "Mars", "Saturn"], answer: "Jupiter" },
+            { question: "Who wrote 'To Kill a Mockingbird'?", options: ["Harper Lee", "J.K. Rowling", "Mark Twain", "Ernest Hemingway"], answer: "Harper Lee" },
+            { question: "What is the chemical symbol for gold?", options: ["Au", "Ag", "Pb", "Fe"], answer: "Au" },
+            { question: "What is the hardest natural substance on Earth?", options: ["Gold", "Iron", "Diamond", "Platinum"], answer: "Diamond" },
+            { question: "What year did the Titanic sink?", options: ["1910", "1912", "1914", "1916"], answer: "1912" },
+            { question: "What is the smallest prime number?", options: ["0", "1", "2", "3"], answer: "2" },
+            { question: "What is the speed of light?", options: ["299,792 km/s", "150,000 km/s", "300,000 km/s", "1,000 km/s"], answer: "299,792 km/s" },
+            { question: "Who painted the Mona Lisa?", options: ["Vincent Van Gogh", "Leonardo da Vinci", "Pablo Picasso", "Claude Monet"], answer: "Leonardo da Vinci" }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timer;
+        let timeLeft = 60; // Quiz duration in seconds
+
+        function startQuiz() {
+            displayQuestion();
+            startTimer();
+        }
+
+        function displayQuestion() {
+            const quizContainer = document.getElementById('quiz');
+            quizContainer.innerHTML = '';
+
+            const question = questions[currentQuestionIndex];
+            const questionElem = document.createElement('div');
+            questionElem.className = 'question';
+            questionElem.textContent = question.question;
+            quizContainer.appendChild(questionElem);
+
+            question.options.forEach(option => {
+                const optionElem = document.createElement('div');
+                optionElem.className = 'option';
+                optionElem.textContent = option;
+                optionElem.onclick = () => checkAnswer(option);
+                quizContainer.appendChild(optionElem);
+            });
+        }
+
+        function checkAnswer(selectedOption) {
+            const correctAnswer = questions[currentQuestionIndex].answer;
+            if (selectedOption === correctAnswer) {
+                score++;
+            }
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function endQuiz() {
+            clearInterval(timer);
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('resultText').textContent = `Quiz Over! Your score is ${score} out of ${questions.length}.`;
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('quiz').style.display = 'block';
+            document.getElementById('nextBtn').style.display = 'block';
+            startQuiz();
+        }
+
+        function startTimer() {
+            timer = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    endQuiz();
+                } else {
+                    timeLeft--;
+                    const minutes = Math.floor(timeLeft / 60);
+                    const seconds = timeLeft % 60;
+                    document.getElementById('timer').textContent = `Time Left: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        window.onload = startQuiz;
+    </script>
+</body>
+</html>

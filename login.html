@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  zoom: 0.6;
+  margin: 0;
+  background-color: black;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.container {
+  display: flex;
+  height: 96vh;
+}
+
+.logo-section {
+  background-color: black;
+  width: 50%;
+}
+
+
+.login-section {
+  background-color: rgb(15, 14, 14);
+  width: 50%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login{
+  box-shadow: inset 0rem 0.5rem 0.5rem 0rem white, 0rem 0.5rem 0.5rem 0rem white;
+  backdrop-filter: blur(0.1rem);
+  font-size: 28px;
+  width: 500px;
+  height: 450px;
+  background: rgb(228, 236, 230);
+  border-radius: 5%;
+  margin-top: 14%;
+  margin-left: 13%;}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+
+.input-field {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #756161;
+  border-radius: 5px;
+}
+
+.login-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.logo-section p{
+    font-size: 1.5em;
+    letter-spacing: 2px;
+    color: white;
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+    font-size: 45px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+footer{    width: 100%;
+}
+
+.footerBox{
+    background-color: #000000;
+    background-image: linear-gradient(160deg, #000000 0%, #666bb4 100%); 
+    width: 100%;
+    text-align: center;
+    min-height: 40px;
+}
+
+.footerBox p {
+    color: azure;
+    font-size: 2rem;
+}
+.login-button a{
+  text-decoration: none;
+  color: white;
+}
+.login-button a:hover{
+  color: rgb(124, 82, 82);
+
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="logo-section">
+    <p>SkillUpWithAI</p>
+    <img src="logo_1.png" alt="Logo" width="900">
+  </div>
+  <div class="login-section login">
+    <h2>Login</h2>
+    <h4>Welcome to SkillUpWithAI</h4>
+    <form class="login-form" id="login-form">
+      <input type="text" class="input-field" placeholder="Username">
+      <input type="password" class="input-field" placeholder="Password">
+      <button type="button" class="login-button" onclick="redirectToDashboard()">Login</button>
+    </form>
+    <p>New to SkillUpWithAI ? <a href="register.html">Register</a> Here</p>
+  </div>
+</div>
+<script>
+function redirectToDashboard() {
+  window.location.href = "student_portal_dashboard_thumbnail.html";
+}
+</script>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<footer>
+  <div class="footerBox">
+       <p>
+           Copyright  &copy; HealthyMunch Pvt Ltd 2024 All Rights Reserved
+       </p>
+  </div>
+</footer>
+</body>
+</html>

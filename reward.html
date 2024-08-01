@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Points, Rewards, and Achievements</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            background-image: url('registration/bg12.jpg');
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        section {
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .info p {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .rewards .reward-item {
+            background-color: #f4f4f4;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reward-item span {
+            font-size: 16px;
+        }
+
+        .reward-item .points {
+            font-weight: bold;
+        }
+
+        .reward-item .status {
+            color: #28a745;
+        }
+
+        .reward-item .status.inactive {
+            color: #6c757d;
+        }
+
+        .update-btn {
+            display: block;
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .update-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .flowchart svg {
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fff;
+        }
+
+        .chart-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        canvas {
+            width: 100% !important;
+            max-width: 800px;
+            height: 400px !important;
+        }
+
+        .icons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .icons i {
+            font-size: 24px;
+            margin: 10px;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>User Points, Rewards, and Achievements</h1>
+    </header>
+
+    <div class="container">
+        <!-- User Info Section -->
+        <section>
+            <h2>Info</h2>
+            <div class="info">
+                <p><i class="fas fa-trophy"></i> Points: <span id="points">0</span></p>
+                <p><i class="fas fa-calendar-check"></i> Challenges Completed: <span id="challenges">0</span></p>
+            </div>
+        </section>
+
+        <!-- Rewards Section -->
+        <section class="rewards">
+            <h2>Rewards</h2>
+            <div class="reward-item">
+                <span><i class="fas fa-star"></i> Quiz Master Badge</span>
+                <span class="points">50 points</span>
+                <span class="status inactive" id="badge-status">Not Earned</span>
+            </div>
+            <div class="reward-item">
+                <span><i class="fas fa-trophy"></i> Challenge Champion Trophy</span>
+                <span class="points">100 points</span>
+                <span class="status inactive" id="trophy-status">Not Earned</span>
+            </div>
+            <button class="update-btn" onclick="updateRewards()">Update Rewards</button>
+        </section>
+
+        <!-- Flowchart Section -->
+        <section class="flowchart">
+            <h2>Daily Streaks and Awards Flowchart</h2>
+            <svg viewBox="0 0 1000 500">
+                <rect x="10" y="10" width="200" height="80" fill="#e0e0e0" stroke="#bbb" stroke-width="2"/>
+                <text x="20" y="50" font-size="20" fill="#333">Day 1</text>
+                <rect x="220" y="10" width="200" height="80" fill="#e0e0e0" stroke="#bbb" stroke-width="2"/>
+                <text x="230" y="50" font-size="20" fill="#333">Day 2</text>
+                <rect x="430" y="10" width="200" height="80" fill="#e0e0e0" stroke="#bbb" stroke-width="2"/>
+                <text x="440" y="50" font-size="20" fill="#333">Day 3</text>
+                <rect x="640" y="10" width="200" height="80" fill="#e0e0e0" stroke="#bbb" stroke-width="2"/>
+                <text x="650" y="50" font-size="20" fill="#333">Day 4</text>
+
+                <line x1="210" y1="50" x2="220" y2="50" stroke="#bbb" stroke-width="2"/>
+                <line x1="420" y1="50" x2="430" y2="50" stroke="#bbb" stroke-width="2"/>
+                <line x1="630" y1="50" x2="640" y2="50" stroke="#bbb" stroke-width="2"/>
+
+                <text x="30" y="90" font-size="16" fill="#333">Complete Quiz</text>
+                <text x="240" y="90" font-size="16" fill="#333">Complete Challenge</text>
+                <text x="450" y="90" font-size="16" fill="#333">Earn Badge</text>
+                <text x="660" y="90" font-size="16" fill="#333">Earn Trophy</text>
+            </svg>
+        </section>
+
+        <!-- Achievements Chart Section -->
+        <section class="chart-container">
+            <h2>Achievements Bar Graph</h2>
+            <canvas id="achievementsChart"></canvas>
+        </section>
+
+        <!-- Icons Section -->
+        <section class="icons">
+            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-medal"></i>
+            <i class="fas fa-gift"></i>
+        </section>
+    </div>
+
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let userPoints = 0;
+        let challengesCompleted = 0;
+
+        function updateRewards() {
+            // Simulate updating points and challenges
+            userPoints = Math.floor(Math.random() * 150); // Random points between 0 and 150
+            challengesCompleted = Math.floor(Math.random() * 5); // Random challenges between 0 and 5
+
+            // Update the displayed points and challenges
+            document.getElementById('points').textContent = userPoints;
+            document.getElementById('challenges').textContent = challengesCompleted;
+
+            // Check and update reward statuses
+            const badgeStatus = document.getElementById('badge-status');
+            const trophyStatus = document.getElementById('trophy-status');
+
+            if (userPoints >= 50) {
+                badgeStatus.textContent = 'Earned';
+                badgeStatus.classList.remove('inactive');
+            } else {
+                badgeStatus.textContent = 'Not Earned';
+                badgeStatus.classList.add('inactive');
+            }
+
+            if (userPoints >= 100) {
+                trophyStatus.textContent = 'Earned';
+                trophyStatus.classList.remove('inactive');
+            } else {
+                trophyStatus.textContent = 'Not Earned';
+                trophyStatus.classList.add('inactive');
+            }
+
+            // Update the bar graph
+            updateAchievementsChart();
+        }
+
+        // Initialize the chart
+        function initAchievementsChart() {
+            const ctx = document.getElementById('achievementsChart').getContext('2d');
+            window.achievementsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Quiz Master Badge', 'Challenge Champion Trophy'],
+                    datasets: [{
+                        label: 'Achievements',
+                        data: [0, 0], // Initial data
+                        backgroundColor: ['#007bff', '#28a745'],
+                        borderColor: ['#0056b3', '#1e7e34'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 10
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update the chart with the current data
+        function updateAchievementsChart() {
+            if (window.achievementsChart) {
+                window.achievementsChart.data.datasets[0].data[0] = userPoints >= 50 ? 50 : 0;
+                window.achievementsChart.data.datasets[0].data[1] = userPoints >= 100 ? 100 : 0;
+                window.achievementsChart.update();
+            }
+        }
+
+        // Initialize the chart on page load
+        window.onload = initAchievementsChart;
+    </script>
+</body>
+</html>
